@@ -35,6 +35,11 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-
-# for macOS
+########### CUSTOM ################
+# macOS
 .DS_Store
+
+# ML Agent Basic structures
+ML-Agents/
+Gizmos/
+ 
