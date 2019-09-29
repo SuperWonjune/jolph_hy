@@ -8,9 +8,11 @@ public class CrawlerAgent : Agent
 {
     [Header("Target To Walk Towards")] [Space(10)]
     public Transform target;
+    public Transform obstacle;
 
     public Transform ground;
     public bool detectTargets;
+    public bool avoidObstacles;
     public bool respawnTargetWhenTouched;
     public float targetSpawnRadius;
 
@@ -154,6 +156,14 @@ public class CrawlerAgent : Agent
         }
     }
 
+    // TODO
+    // Obstacle penalty
+    public void TouchedObstacle()
+    {
+        AddReward(-1f);
+        // Reset Obstacle Position?
+    }
+
     /// <summary>
     /// Moves target to a random position within specified radius.
     /// </summary>
@@ -173,6 +183,18 @@ public class CrawlerAgent : Agent
                 if (bodyPart.targetContact && !IsDone() && bodyPart.targetContact.touchingTarget)
                 {
                     TouchedTarget();
+                }
+            }
+        }
+
+        // penalty for obstacles are enabled
+        if (avoidObstacles)
+        {
+            foreach (var bodyPart in jdController.bodyPartsDict.Values)
+            {
+                if (bodyPart.obstacleContact && !IsDone() && bodyPart.targetContact.touchingTarget)
+                {
+                    TouchedObstacle();
                 }
             }
         }
@@ -242,18 +264,14 @@ public class CrawlerAgent : Agent
         IncrementDecisionTimer();
     }
 
-    /// <summary>
     /// Reward moving towards target & Penalize moving away from target.
-    /// </summary>
     void RewardFunctionMovingTowards()
     {
         movingTowardsDot = Vector3.Dot(jdController.bodyPartsDict[body].rb.velocity, dirToTarget.normalized);
         AddReward(0.03f * movingTowardsDot);
     }
 
-    /// <summary>
     /// Reward facing target & Penalize facing away from target
-    /// </summary>
     void RewardFunctionFacingTarget()
     {
         facingDot = Vector3.Dot(dirToTarget.normalized, body.forward);
@@ -287,4 +305,8 @@ public class CrawlerAgent : Agent
         isNewDecisionStep = true;
         currentDecisionStep = 1;
     }
+
+
+    // TODO
+    // get the closest target avaialble
 }

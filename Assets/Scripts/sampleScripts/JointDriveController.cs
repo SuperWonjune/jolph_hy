@@ -17,8 +17,8 @@ namespace MLAgents
 
         [Header("Ground & Target Contact")] [Space(10)]
         public GroundContact groundContact;
-
         public TargetContact targetContact;
+        public ObstacleContact obstacleContact;
 
         [HideInInspector] public JointDriveController thisJDController;
 
@@ -56,6 +56,11 @@ namespace MLAgents
             if (bp.targetContact)
             {
                 bp.targetContact.touchingTarget = false;
+            }
+
+            if (bp.obstacleContact)
+            {
+                bp.obstacleContact.touchingObstacle = false;
             }
         }
 
