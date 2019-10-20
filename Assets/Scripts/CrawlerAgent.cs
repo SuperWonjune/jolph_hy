@@ -160,7 +160,7 @@ public class CrawlerAgent : Agent
     // Obstacle penalty
     public void TouchedObstacle()
     {
-        AddReward(-1f);
+        AddReward(-0.1f);
         // Reset Obstacle Position?
     }
 

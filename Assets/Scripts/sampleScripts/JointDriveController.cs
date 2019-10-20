@@ -139,6 +139,19 @@ namespace MLAgents
                 bp.groundContact.agent = gameObject.GetComponent<Agent>();
             }
 
+            // TODO
+            // Add & setup the obstacle contact script
+            bp.obstacleContact = t.GetComponent<ObstacleContact>();
+            if (!bp.obstacleContact)
+            {
+                bp.obstacleContact = t.gameObject.AddComponent<ObstacleContact>();
+                bp.obstacleContact.agent = gameObject.GetComponent<Agent>();
+            }
+            else
+            {
+                bp.obstacleContact.agent = gameObject.GetComponent<Agent>();
+            }
+
             // Add & setup the target contact script
             bp.targetContact = t.GetComponent<TargetContact>();
             if (!bp.targetContact)

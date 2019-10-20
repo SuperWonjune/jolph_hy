@@ -7,9 +7,14 @@ namespace MLAgents
     [DisallowMultipleComponent]
     public class ObstacleContact : MonoBehaviour
     {
-        [Header("Detect Obstacles")] public bool touchingObstacle;
-        private const string Obstacle = "obstacle"; // Tag on obstacle
+        [HideInInspector] public Agent agent;
 
+        [Header("Detect Obstacles")]
+        public bool agentDoneOnObstacleContact;
+        public bool penalizeObstacleContact; // Whether to penalize on contact.
+        public float obstacleContactPenalty; // Penalty amount (ex: -1).
+        public bool touchingObstacle;
+        private const string Obstacle = "obstacle"; // Tag on obstacle
         /// <summary>
         /// Check for collision with a target.
         /// </summary>
@@ -18,6 +23,15 @@ namespace MLAgents
             if (col.transform.CompareTag(Obstacle))
             {
                 touchingObstacle = true;
+                if (penalizeObstacleContact)
+                {
+                    agent.SetReward(obstacleContactPenalty);
+                }
+
+                if (agentDoneOnObstacleContact)
+                {
+                    agent.Done();
+                }
             }
         }
 
