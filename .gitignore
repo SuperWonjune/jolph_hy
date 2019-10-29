@@ -43,3 +43,8 @@ sysinfo.txt
 ML-Agents/
 Gizmos/
  
+# ML learning things
+summaries/
+models/
+
+UnitySDK.log
