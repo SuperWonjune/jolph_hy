@@ -121,8 +121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  agentDoneOnObstacleContact: 0
-  penalizeObstacleContact: 0
+  agentDoneOnObstacleContact: 1
+  penalizeObstacleContact: 1
   obstacleContactPenalty: -1
   touchingObstacle: 0
 --- !u!114 &481167587431981384
@@ -246,8 +246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  agentDoneOnObstacleContact: 0
-  penalizeObstacleContact: 0
+  agentDoneOnObstacleContact: 1
+  penalizeObstacleContact: 1
   obstacleContactPenalty: -1
   touchingObstacle: 0
 --- !u!1 &1516456234734736
@@ -605,8 +605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  agentDoneOnObstacleContact: 0
-  penalizeObstacleContact: 0
+  agentDoneOnObstacleContact: 1
+  penalizeObstacleContact: 1
   obstacleContactPenalty: -1
   touchingObstacle: 0
 --- !u!114 &7050907285620369362
@@ -622,8 +622,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  agentDoneOnObstacleContact: 0
-  penalizeObstacleContact: 0
+  agentDoneOnObstacleContact: 1
+  penalizeObstacleContact: 1
   obstacleContactPenalty: -1
   touchingObstacle: 0
 --- !u!114 &6010163555747678061
@@ -750,7 +750,7 @@ PrefabInstance:
     - target: {fileID: 5236652328173079685, guid: 2fd876f4ea3bf4420a8e6a8f66bd4508,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.71
+      value: 3.25
       objectReference: {fileID: 0}
     - target: {fileID: 5236652328173079685, guid: 2fd876f4ea3bf4420a8e6a8f66bd4508,
         type: 3}
@@ -760,7 +760,7 @@ PrefabInstance:
     - target: {fileID: 5236652328173079685, guid: 2fd876f4ea3bf4420a8e6a8f66bd4508,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.11
       objectReference: {fileID: 0}
     - target: {fileID: 5236652328173079685, guid: 2fd876f4ea3bf4420a8e6a8f66bd4508,
         type: 3}
@@ -907,6 +907,21 @@ PrefabInstance:
       propertyPath: ground
       value: 
       objectReference: {fileID: 4399933753937606}
+    - target: {fileID: 8138611156037550817, guid: 00f03d4b0a4a643a1b1e3fda6cefe492,
+        type: 3}
+      propertyPath: avoidObstacles
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138611156037550817, guid: 00f03d4b0a4a643a1b1e3fda6cefe492,
+        type: 3}
+      propertyPath: rewardUseTimePenalty
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138611156037550817, guid: 00f03d4b0a4a643a1b1e3fda6cefe492,
+        type: 3}
+      propertyPath: targetSpawnRadius
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f03d4b0a4a643a1b1e3fda6cefe492, type: 3}
 --- !u!1 &1663529878731152 stripped

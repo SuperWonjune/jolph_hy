@@ -12,7 +12,6 @@ public class CrawlerAgent : Agent
 
     public Transform ground;
     public bool detectTargets;
-    public bool avoidObstacles;
     public bool respawnTargetWhenTouched;
     public float targetSpawnRadius;
 
@@ -37,6 +36,8 @@ public class CrawlerAgent : Agent
     public bool rewardFacingTarget; // Agent should face the target
     public bool rewardUseTimePenalty; // Hurry up
 
+    public bool penaltyFacingObstacle;
+
     [Header("Foot Grounded Visualization")] [Space(10)]
     public bool useFootGroundedVisualization;
 
@@ -51,6 +52,9 @@ public class CrawlerAgent : Agent
 
     Quaternion lookRotation;
     Matrix4x4 targetDirMatrix;
+
+    // For observing Rays around object
+    RayPerception rayPer;
 
     public override void InitializeAgent()
     {
@@ -153,15 +157,8 @@ public class CrawlerAgent : Agent
         if (respawnTargetWhenTouched)
         {
             GetRandomTargetPos();
+            GetRandomObstaclePos();
         }
-    }
-
-    // TODO
-    // Obstacle penalty
-    public void TouchedObstacle()
-    {
-        AddReward(-0.1f);
-        // Reset Obstacle Position?
     }
 
     /// <summary>
@@ -174,6 +171,16 @@ public class CrawlerAgent : Agent
         target.position = newTargetPos + ground.position;
     }
 
+    // TODO
+    // Set near target maybe?
+    // Set new obstacle position
+    public void GetRandomObstaclePos()
+    {
+        Vector3 newObstaclePos = Random.insideUnitSphere * targetSpawnRadius;
+        newObstaclePos.y = 5;
+        obstacle.position = newObstaclePos + ground.position;
+    }
+
     public override void AgentAction(float[] vectorAction, string textAction)
     {
         if (detectTargets)
@@ -183,18 +190,6 @@ public class CrawlerAgent : Agent
                 if (bodyPart.targetContact && !IsDone() && bodyPart.targetContact.touchingTarget)
                 {
                     TouchedTarget();
-                }
-            }
-        }
-
-        // penalty for obstacles are enabled
-        if (avoidObstacles)
-        {
-            foreach (var bodyPart in jdController.bodyPartsDict.Values)
-            {
-                if (bodyPart.obstacleContact && !IsDone() && bodyPart.targetContact.touchingTarget)
-                {
-                    TouchedObstacle();
                 }
             }
         }
@@ -261,6 +256,10 @@ public class CrawlerAgent : Agent
             RewardFunctionTimePenalty();
         }
 
+        // TODO
+        // add facing and velocity toward obstacle
+
+
         IncrementDecisionTimer();
     }
 
@@ -278,6 +277,20 @@ public class CrawlerAgent : Agent
         AddReward(0.01f * facingDot);
     }
 
+    // TODO
+    // decrease reward when moving towards target
+    // possibly direction
+
+    void PenaltyFunctionTowards()
+    {
+
+    }
+
+    void PenaltyFunctionFacingObstacle()
+    {
+
+    }
+
     /// <summary>
     /// Existential penalty for time-contrained tasks.
     /// </summary>
@@ -286,11 +299,18 @@ public class CrawlerAgent : Agent
         AddReward(-0.001f);
     }
 
+
     /// <summary>
     /// Loop over body parts and reset them to initial conditions.
     /// </summary>
     public override void AgentReset()
     {
+        // TODO
+        // Reset position of objects
+        // might have dangers
+        GetRandomObstaclePos();
+        GetRandomTargetPos();
+
         if (dirToTarget != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(dirToTarget);
